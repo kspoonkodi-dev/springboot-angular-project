@@ -1,0 +1,27 @@
+<div class="approval-layout">
+  <h2 class="layout-title mb-4">Instructor Approval</h2>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  <table class="user-table">
+    <tr>
+      <th>UserId</th>
+      <th>UserName</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let u of users$ | async">
+      <td>{{ u.userId }}</td>
+      <td>{{ u.username }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.role }}</td>
+      <td>{{ u.status }}</td>
+      <td>
+        <button type="button" class="btn approve-btn" (click)="approve(u.userId)">Approve</button>
+        <button type="button" class="btn reject-btn" (click)="reject(u.userId)">Reject</button>
+      </td>
+    </tr>
+  </table>
+</div>

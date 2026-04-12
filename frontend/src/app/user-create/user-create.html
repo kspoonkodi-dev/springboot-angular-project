@@ -1,0 +1,61 @@
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div clas="card-body">
+      <h2 class="card-title mb-4">Register</h2>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="userForm" (ngSubmit)="createUser()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            id="username"
+            class="form-Control"
+            formControlName="username"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-Control"
+            formControlName="password"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="text"
+            id="email"
+            class="form-Control"
+            formControlName="email"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <!--<div class="mb-3">
+          <label for="role" class="form-label">Role</label>
+          <input
+            type="text"
+            id="role"
+            class="form-Control"
+            formControlName="role"
+            required
+            autocomplete="off"
+          />
+        </div> -->
+
+        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+          Register User
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

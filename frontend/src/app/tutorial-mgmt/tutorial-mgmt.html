@@ -1,0 +1,110 @@
+<div class="tutorial-layout">
+  <h2 class="layout-title mb-4">Tutorial Management</h2>
+  <div class="tutorial-options mb-3">
+    <button (click)="viewMode = 'create'; resetForm()" class="btn btn-primary">Create</button>
+
+    <button (click)="viewMode = 'update'; resetForm()" class="btn btn-primary">Update</button>
+
+    <button (click)="viewMode = 'delete'; resetForm()" class="btn btn-primary">Delete</button>
+  </div>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  <form [formGroup]="tutorialForm">
+    <label class="form-label">Courses</label>
+    <div>
+      <input
+        *ngIf="!showDropdown"
+        type="text"
+        formControlName="courseId"
+        [value]="course[0]?.title"
+        readonly
+        class="form-control"
+      />
+    </div>
+
+    <div>
+      <select *ngIf="showDropdown" formControlName="courseId" (change)="onCourseChange()">
+        <option value="">Select Course</option>
+        <option *ngFor="let c of course" [ngValue]="c.courseId">
+          {{ c.courseId }} - {{ c.title }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="viewMode !== 'create'">
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>Tutorial Id</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>YouTubeLink</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="tutorial.length > 0; else noData">
+          <tr
+            *ngFor="let t of tutorial"
+            (click)="selectTutorial(t)"
+            style="cursor: pointer"
+            [class.selected]="t.tutorialId === selectedTutorialId"
+          >
+            <td>{{ t.tutorialId }}</td>
+            <td>{{ t.title }}</td>
+            <td>{{ t.content }}</td>
+            <td>{{ t.youTubeLink }}</td>
+          </tr>
+        </tbody>
+        <ng-template #noData>
+          <tr>
+            <td colspan="2" class="text-center">No tutorial available</td>
+          </tr>
+        </ng-template>
+      </table>
+    </div>
+    <div *ngIf="viewMode !== 'delete'">
+      <div formGroupName="tutorial">
+        <label class="form-label">Title</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+          autocomplete="off"
+          required
+        />
+        <label class="form-label">Content</label>
+        <input
+          type="text"
+          id="content"
+          formControlName="content"
+          class="form-control"
+          autocomplete="off"
+          required
+        />
+        <label class="form-label">YouTubeLink</label>
+
+        <input
+          type="text"
+          id="youTubeLink"
+          formControlName="youTubeLink"
+          class="form-control"
+          autocomplete="off"
+          required
+        />
+      </div>
+    </div>
+
+    <button type="button" (click)="handleAction()" [disabled]="isActionDisabled">
+      {{
+        viewMode === 'create'
+          ? 'Create Tutorial'
+          : viewMode === 'update'
+            ? 'Update Tutorial'
+            : 'Delete Tutorial'
+      }}
+    </button>
+  </form>
+</div>

@@ -1,0 +1,10 @@
+<div class="page">
+  <div class="sidebar">
+    <button class="btn btn-primary" routerLink="approvals">Approvals</button>
+    <button class="btn btn-primary" routerLink="activity-Monitor">Activity Monitor</button>
+    <button class="btn btn-primary" (click)="logout()">Logout</button>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

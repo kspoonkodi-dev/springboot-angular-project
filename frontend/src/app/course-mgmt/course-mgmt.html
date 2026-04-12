@@ -1,0 +1,92 @@
+<div class="course-layout">
+  <h2 class="layout-title mb-4">Course Management</h2>
+
+  <div class="tutorial-options mb-3">
+    <button (click)="viewMode = 'create'; resetForm()" class="btn btn-primary">Create</button>
+
+    <button (click)="viewMode = 'update'; resetForm()" class="btn btn-primary">Update</button>
+
+    <button (click)="viewMode = 'delete'; resetForm()" class="btn btn-primary">Delete</button>
+  </div>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <form [formGroup]="courseForm">
+    <div *ngIf="viewMode !== 'create'">
+      <table class="user-table">
+        <tr>
+          <th>CourseId</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
+        <tbody *ngIf="courses.length > 0; else noData">
+          <tr
+            *ngFor="let c of courses"
+            (click)="selectCourse(c)"
+            [class.selected]="c.courseId === selectedCourseId"
+          >
+            <td>{{ c.courseId }}</td>
+            <td>{{ c.title }}</td>
+            <td>{{ c.description }}</td>
+            <td>{{ c.status }}</td>
+          </tr>
+        </tbody>
+        <ng-template #noData>
+          <tr>
+            <td colspan="2" class="text-center">No courses available</td>
+          </tr>
+        </ng-template>
+      </table>
+    </div>
+    <div *ngIf="viewMode !== 'delete'">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          id="title"
+          class="form-Control"
+          formControlName="title"
+          required
+          autocomplete="off"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input
+          type="text"
+          id="description"
+          class="form-Control"
+          formControlName="description"
+          required
+          autocomplete="off"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="status" class="form-label">Status</label>
+        <input
+          type="text"
+          id="status"
+          class="form-Control"
+          formControlName="status"
+          required
+          autocomplete="off"
+        />
+      </div>
+    </div>
+
+    <button type="button" (click)="handleAction()" [disabled]="isActionDisabled">
+      {{
+        viewMode === 'create'
+          ? 'Create Course'
+          : viewMode === 'update'
+            ? 'Update Course'
+            : 'Delete Course'
+      }}
+    </button>
+  </form>
+</div>

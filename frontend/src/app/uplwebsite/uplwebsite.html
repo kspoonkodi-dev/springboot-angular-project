@@ -1,0 +1,38 @@
+<div class="website-layout">
+  <h2>UPL Tutorials</h2>
+  <div class="top-panel">
+    <button class="btn btn-primary" (click)="register()">Register</button>
+    <button class="btn btn-primary" (click)="login()">Sign In</button>
+  </div>
+  <header class="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="dropdown" *ngFor="let n of navItems">
+        <button class="dropbtn" (click)="loadTutorials(n.courseId!)">
+          {{ n.title }}
+        </button>
+
+        <div class="dropdown-content" *ngIf="selectedCourseId === n.courseId">
+          <a *ngFor="let m of menuList" (click)="loadContent(m)">
+            {{ m.title }}
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div style="width: 70%">
+      <h2>{{ selectedTutorial?.title }}</h2>
+
+      <iframe width="560" height="315" [src]="youTubeLink" allowfullscreen> </iframe>
+      <!--<p>{{ selectedTutorial?.content }}</p> -->
+      <div [innerHTML]="selectedTutorial?.content"></div>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="website-title">
+      <h1>UPL Tutorials</h1>
+    </div>
+  </section>
+  <footer>© 2026 CoursePortal</footer>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
