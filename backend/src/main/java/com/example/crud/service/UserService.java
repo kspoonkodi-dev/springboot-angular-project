@@ -25,12 +25,12 @@ public class UserService {
 	public User registerUser(User user) {
 
 		if (userRepository.existsByUsername(user.getUsername())) {
-			
+
 			throw new UserAlreadyExistsException("Username already registered");
 		}
 
 		if (userRepository.existsByEmail(user.getEmail())) {
-			
+
 			throw new UserAlreadyExistsException("Email already registered");
 		}
 

@@ -26,7 +26,7 @@ private final UserRepository userRepository;
 	}
 
 	public UserIdOnly getId(String username) {
-		
+
 		return userRepository.findProjectedByUsername(username);
 	}
 
@@ -39,7 +39,7 @@ private final UserRepository userRepository;
 
     public List<Course> getCourse(Integer instructorId)
     {
-    	
+
     	return courseRepository.findByUserUserId(instructorId);
     }
 
@@ -61,7 +61,7 @@ private final UserRepository userRepository;
 
 	public Course updateCourse(Integer instructorId,Course course, Integer courseId) {
 
-		
+
 		User user = userRepository.findById(instructorId).get();
 		Course	exsitingCourse =	courseRepository.findById(courseId).get();
 

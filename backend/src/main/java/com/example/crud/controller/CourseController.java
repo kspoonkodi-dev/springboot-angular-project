@@ -52,12 +52,12 @@ public class CourseController {
 	@PreAuthorize("hasRole('INSTRUCTOR')")
     @GetMapping("/all")
 	public List<CourseResponseDTO> allCourse(Authentication auth){
-		
+
 
 		UserIdOnly projectionUserId = courseService.getId(auth.getName());
 		Integer instructorId = (projectionUserId.getUserId().intValue());
 
-		
+
 		List<Course> newCourse = courseService.getCourse(instructorId);
 		return newCourse.stream()
 				.map(course -> new  CourseResponseDTO(
@@ -75,12 +75,12 @@ public class CourseController {
 	@PreAuthorize("hasRole('INSTRUCTOR')")
     @GetMapping("/allCourse")
 	public List<CrsResponseDTO> allCourseforTutorial(Authentication auth){
-		
+
 
 		UserIdOnly projectionUserId = courseService.getId(auth.getName());
 		Integer instructorId = (projectionUserId.getUserId().intValue());
 
-		
+
 		List<Course> newCourse = courseService.getCourse(instructorId);
 		return newCourse.stream()
 				.map(course->new CrsResponseDTO(
@@ -104,7 +104,7 @@ public class CourseController {
 
 		UserIdOnly projectionUserId = courseService.getId(auth.getName());
 
-		
+
 
 		Integer instructorId = (projectionUserId.getUserId().intValue());
 
@@ -143,7 +143,7 @@ public class CourseController {
 	@PreAuthorize("hasRole('INSTRUCTOR')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteCourse(Authentication auth, @PathVariable("id") Integer courseId) {
-		
+
 
 		courseService.deleteCourse(courseId);
 		return new ResponseEntity<>("Course successfully deleted!", HttpStatus.OK);
